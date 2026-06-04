@@ -1,8 +1,8 @@
-import QtQuick 2.15
-import QtQuick.Controls 2.0
-import SddmComponents 2.0
+import QtQuick
+import QtQuick.Controls
+import SddmComponents
 
-import Qt5Compat.GraphicalEffects
+import QtQuick.Effects
 
 Rectangle {
     id: root
@@ -179,10 +179,13 @@ Rectangle {
             id: background
             visible: true
             anchors.fill: parent
+            clip: true
             color: config.stringValue("backgroundFill") || "transparent"
+            property int blurRadius: config.intValue("blurRadius") || 0
             Image {
                 id: image
                 anchors.fill: parent
+                anchors.margins: background.blurRadius > 0 ? -background.blurRadius : 0
                 source: config.stringValue("background")
                 smooth: true
                 fillMode: bgFillMode()
@@ -208,12 +211,14 @@ Rectangle {
                 }
             }
 
-            FastBlur {
+            MultiEffect {
                 id: fastBlur
                 z: 3
                 anchors.fill: image
                 source: image
-                radius: config.intValue("blurRadius")
+                blurEnabled: background.blurRadius > 0
+                blurMax: background.blurRadius
+                blur: 1.0
             }
 
         }
