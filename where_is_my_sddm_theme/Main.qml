@@ -235,7 +235,7 @@ Rectangle {
                 verticalCenter: parent.verticalCenter
                 horizontalCenter: parent.horizontalCenter
             }
-            echoMode: config.boolValue("passwordMask") ? TextInput.Password : null
+            echoMode: config.boolValue("passwordMask") ? TextInput.Password : TextInput.Normal
             color: config.stringValue("passwordTextColor") || textColor
             selectionColor: textColor
             selectedTextColor: "#000000"
